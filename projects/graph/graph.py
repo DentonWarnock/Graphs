@@ -77,6 +77,7 @@ class Graph:
                 print(current)
                 # Mark it as visited
                 visited.add(current)
+                
                 for next_vert in self.get_neighbors(current):
                     stack.push(next_vert)
 
@@ -95,7 +96,33 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        # Create an empty queue and enqueue a path to the starting vertex id
+        queue = Queue()
+        path = [starting_vertex]
+        queue.enqueue(path)
+        # Create a Set to store visited vertices
+        visited = set()
+        # While the queue is not empty
+        while queue.size() > 0:
+            # Dequeue the first PATH
+            current = queue.dequeue()
+            # Grab the last vertex from the PATH
+            last = current[-1]
+            
+            if last is destination_vertex:                
+                return current
+
+            # If that vertex has not been visited
+            if last not in visited:
+                # check if it's the target
+                # Mark it as visited
+                visited.add(last)
+                
+                # Then add a path to its neighbors to the back of the queue
+                for next_vert in self.get_neighbors(last):
+                    copy = current[:]
+                    copy.append(next_vert)
+                    queue.enqueue(copy)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
