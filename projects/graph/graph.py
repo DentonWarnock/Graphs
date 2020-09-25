@@ -52,9 +52,9 @@ class Graph:
                 print(current)
                 # Mark as visited
                 visited.add(current)
-                
-                for next_vertex in self.get_neighbors(current):
-                    queue.enqueue(next_vertex)
+                # add all neighbors to the back of the queue
+                for neighbor in self.get_neighbors(current):
+                    queue.enqueue(neighbor)
 
     def dft(self, starting_vertex):
         """
@@ -77,9 +77,9 @@ class Graph:
                 print(current)
                 # Mark it as visited
                 visited.add(current)
-                
-                for next_vert in self.get_neighbors(current):
-                    stack.push(next_vert)
+                # add all neighbors to the back of the stack
+                for neighbor in self.get_neighbors(current):
+                    stack.push(neighbor)
 
     def dft_recursive(self, starting_vertex, vistited=set()):
         """
@@ -122,7 +122,7 @@ class Graph:
             current = queue.dequeue()
             # Grab the last vertex from the PATH
             last = current[-1]
-            
+            # check if the last path is the target and return current if so
             if last is destination_vertex:                
                 return current
 
@@ -133,9 +133,9 @@ class Graph:
                 visited.add(last)
                 
                 # Then add a path to its neighbors to the back of the queue
-                for next_vert in self.get_neighbors(last):
+                for neighbor in self.get_neighbors(last):
                     copy = current[:]
-                    copy.append(next_vert)
+                    copy.append(neighbor)
                     queue.enqueue(copy)
 
     def dfs(self, starting_vertex, destination_vertex):
@@ -167,9 +167,9 @@ class Graph:
                 visited.add(last)
 
                 # Then add a path to its neighbors to the back of the queue
-                for next_vert in self.get_neighbors(last):
+                for neighbor in self.get_neighbors(last):
                     copy = current[:]
-                    copy.append(next_vert)
+                    copy.append(neighbor)
                     stack.push(copy)
 
     def dfs_recursive(self, starting_vertex, destination_vertex, visited=set(), path=[]):
